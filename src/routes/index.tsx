@@ -12,129 +12,171 @@ import {
   Trash2,
   Sparkles,
   Heart,
+  Phone,
+  Clock,
+  MapPin,
 } from "lucide-react";
 
-import heroBottle from "@/assets/hero-bottle.jpg";
-import p1 from "@/assets/perfume-1.jpg";
-import p2 from "@/assets/perfume-2.jpg";
-import p3 from "@/assets/perfume-3.jpg";
-import p4 from "@/assets/perfume-4.jpg";
+import heroAsset from "@/assets/musk/musk-egypt.jpg.asset.json";
+import orientalAsset from "@/assets/musk/musk-oriental.jpg.asset.json";
+import serumAsset from "@/assets/musk/musk-serum.jpg.asset.json";
+import parfumeurAsset from "@/assets/musk/musk-parfumeur.jpg.asset.json";
+import harmonyAsset from "@/assets/musk/musk-harmony.jpg.asset.json";
+import splashAsset from "@/assets/musk/musk-splash.jpg.asset.json";
+import rosesAsset from "@/assets/musk/musk-roses.jpg.asset.json";
+
 import noteWoody from "@/assets/note-woody.jpg";
 import noteSpice from "@/assets/note-spice.jpg";
 import noteFruit from "@/assets/note-fruit.jpg";
 import noteFloral from "@/assets/note-floral.jpg";
 import noteMusk from "@/assets/note-musk.jpg";
 import giftImg from "@/assets/gift.jpg";
-import aboutImg from "@/assets/about.jpg";
+
+const hero = heroAsset.url;
+const oriental = orientalAsset.url;
+const serum = serumAsset.url;
+const parfumeur = parfumeurAsset.url;
+const harmony = harmonyAsset.url;
+const splash = splashAsset.url;
+const roses = rosesAsset.url;
+
+const PHONE = "01202911463";
+const PHONE_INTL = "+201202911463";
+const HOURS = "السبت – الخميس · 10:00 ص – 10:00 م";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MAISON ANUBIS — Luxury Niche Perfume House" },
-      { name: "description", content: "Rare niche fragrances inspired by French haute parfumerie and Egyptian heritage. Discover the collection." },
-      { property: "og:title", content: "MAISON ANUBIS — Luxury Scents. Unforgettable Presence." },
-      { property: "og:description", content: "Rare niche fragrances inspired by French haute parfumerie and Egyptian heritage." },
-      { property: "og:image", content: heroBottle },
-      { property: "og:url", content: "/" },
+      { title: "MUSK — Extrait de Parfum · Born in Egypt, Inspired by Eternity" },
+      { name: "description", content: "MUSK — دار عطور فاخرة من قلب مصر. عطور نادرة بإلهام فرنسي وروح شرقية. أحجام 35مل، 50مل، 100مل بأسعار تبدأ من 350 جنيه." },
+      { property: "og:title", content: "MUSK — Extrait de Parfum" },
+      { property: "og:description", content: "Born in Egypt · Inspired by Eternity. عطور فاخرة بإلهام شرقي." },
+      { property: "og:image", content: hero },
     ],
     links: [{ rel: "canonical", href: "/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Maison Anubis",
-          description: "Luxury niche perfume house inspired by French haute parfumerie and Egyptian heritage.",
-        }),
-      },
-    ],
   }),
   component: Home,
 });
 
-type Family = "All" | "Oriental" | "Woody" | "Floral" | "Musk";
+type Family = "All" | "Oriental" | "Woody" | "Floral" | "Fresh" | "Serum";
+type Size = 35 | 50 | 100;
+
+const PRICES: Record<Size, number> = { 35: 350, 50: 450, 100: 600 };
 
 type Product = {
   id: string;
   name: string;
   subtitle: string;
-  price: number;
   image: string;
   family: Family;
   notes: { top: string; heart: string; base: string };
   rating: number;
   reviews: number;
+  sizes: Size[];
 };
 
 const PRODUCTS: Product[] = [
   {
-    id: "nile-gold",
-    name: "Nil d'Or",
-    subtitle: "Eau de Parfum · 100ml",
-    price: 320,
-    image: p1,
+    id: "musk-noir",
+    name: "Musk Noir",
+    subtitle: "Extrait de Parfum · Luxury Collection",
+    image: hero,
     family: "Oriental",
-    notes: { top: "Saffron, Bergamot", heart: "Bulgarian Rose, Oud", base: "Amber, Sandalwood" },
-    rating: 4.9,
-    reviews: 184,
-  },
-  {
-    id: "rose-cairo",
-    name: "Rose du Caire",
-    subtitle: "Extrait de Parfum · 75ml",
-    price: 410,
-    image: p2,
-    family: "Floral",
-    notes: { top: "Pink Pepper, Pear", heart: "Damask Rose, Jasmine", base: "Cashmeran, Musk" },
-    rating: 4.8,
-    reviews: 211,
-  },
-  {
-    id: "anubis-noir",
-    name: "Anubis Noir",
-    subtitle: "Extrait de Parfum · 100ml",
-    price: 480,
-    image: p3,
-    family: "Woody",
-    notes: { top: "Black Pepper, Incense", heart: "Cambodian Oud, Leather", base: "Vetiver, Tonka" },
+    notes: { top: "Saffron, Bergamot, Pineapple", heart: "Damask Rose, Oud", base: "Amber, Sandalwood, Vanilla" },
     rating: 5.0,
-    reviews: 96,
+    reviews: 312,
+    sizes: [35, 50, 100],
   },
   {
-    id: "ombre-musc",
-    name: "Ombre Musc",
-    subtitle: "Eau de Parfum · 100ml",
-    price: 290,
-    image: p4,
-    family: "Musk",
-    notes: { top: "Aldehydes, Mandarin", heart: "Iris, White Musk", base: "Ambroxan, Vanilla" },
-    rating: 4.7,
-    reviews: 152,
+    id: "musk-oriental",
+    name: "Musk Oriental",
+    subtitle: "Eau de Parfum · Oriental Fragrance",
+    image: oriental,
+    family: "Oriental",
+    notes: { top: "Pink Pepper, Saffron", heart: "Rose, Lotus, Amber Resin", base: "Oud, Tonka, Musk" },
+    rating: 4.9,
+    reviews: 248,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-azure",
+    name: "Musk Azure",
+    subtitle: "Eau de Parfum · Splash of Royalty",
+    image: splash,
+    family: "Fresh",
+    notes: { top: "Marine Accord, Bergamot", heart: "Lavender, Sea Salt", base: "Ambergris, White Musk" },
+    rating: 4.8,
+    reviews: 196,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-harmony",
+    name: "Musk Harmony",
+    subtitle: "Extrait de Parfum · Nature & Elegance",
+    image: harmony,
+    family: "Woody",
+    notes: { top: "Orange, Guava, Mango", heart: "Bergamot, Cedar", base: "Oud, Vetiver, Patchouli" },
+    rating: 4.9,
+    reviews: 174,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-parfumeur",
+    name: "Musk Parfumeur",
+    subtitle: "Eau de Parfum · Signature Couture",
+    image: parfumeur,
+    family: "Floral",
+    notes: { top: "Peony, Pear", heart: "Jasmine, Tuberose", base: "Iris, Cashmere Musk" },
+    rating: 5.0,
+    reviews: 221,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-roses",
+    name: "Musk Rose Eternal",
+    subtitle: "Eau de Parfum · Petals on the Shore",
+    image: roses,
+    family: "Floral",
+    notes: { top: "Red Rose, Sand Accord", heart: "White Rose, Iris", base: "Amber, Cashmere" },
+    rating: 4.9,
+    reviews: 188,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-serum",
+    name: "Musk Élixir",
+    subtitle: "Luxury Body Serum · 30ml",
+    image: serum,
+    family: "Serum",
+    notes: { top: "Citrus, Plumeria", heart: "Tropical Hibiscus", base: "Argan, Gold Musk" },
+    rating: 4.8,
+    reviews: 142,
+    sizes: [50],
   },
 ];
 
-const FAMILIES: Family[] = ["All", "Oriental", "Woody", "Floral", "Musk"];
+const FAMILIES: Family[] = ["All", "Oriental", "Woody", "Floral", "Fresh", "Serum"];
 
 const EXPERIENCES = [
   { name: "Woody", image: noteWoody, desc: "Oud, sandalwood, cedar — the soul of the East." },
   { name: "Spices", image: noteSpice, desc: "Saffron, cardamom, pepper — warmth and intrigue." },
-  { name: "Fruits", image: noteFruit, desc: "Bergamot, fig, pear — the first golden impression." },
-  { name: "Flowers", image: noteFloral, desc: "Rose, jasmine, iris — petals carved in light." },
+  { name: "Fruits", image: noteFruit, desc: "Bergamot, fig, mango — the first golden impression." },
+  { name: "Flowers", image: noteFloral, desc: "Rose, jasmine, lotus — petals carved in light." },
   { name: "Musk", image: noteMusk, desc: "White musk, ambroxan — the lingering trace of skin." },
 ];
 
 const REVIEWS = [
-  { name: "Léa M.", city: "Paris", text: "A scent that draws people closer before a word is spoken. Anubis Noir is unforgettable.", rating: 5 },
-  { name: "Yousef A.", city: "Cairo", text: "Maison Anubis bridges two worlds — the elegance of Paris and the mystery of the Nile.", rating: 5 },
-  { name: "Sofia R.", city: "Milan", text: "Rose du Caire is the most refined rose I have ever worn. A true couture fragrance.", rating: 5 },
+  { name: "ليلى م.", city: "القاهرة", text: "رائحة تجذب الأنظار قبل الكلمات. Musk Noir لا يُنسى أبدًا.", rating: 5 },
+  { name: "Yousef A.", city: "Alexandria", text: "MUSK يجمع بين أناقة باريس وغموض النيل. تجربة استثنائية.", rating: 5 },
+  { name: "Sofia R.", city: "Milan", text: "Musk Parfumeur is the most refined fragrance I have ever worn.", rating: 5 },
 ];
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [filter, setFilter] = useState<Family>("All");
-  const [cart, setCart] = useState<{ id: string; qty: number }[]>([]);
+  const [selectedSize, setSelectedSize] = useState<Record<string, Size>>({});
+  const [cart, setCart] = useState<{ id: string; size: Size; qty: number }[]>([]);
 
   useEffect(() => {
     document.body.style.overflow = cartOpen || menuOpen ? "hidden" : "";
@@ -145,25 +187,41 @@ function Home() {
     [filter],
   );
 
-  const cartItems = cart.map((c) => ({ ...PRODUCTS.find((p) => p.id === c.id)!, qty: c.qty }));
-  const subtotal = cartItems.reduce((s, i) => s + i.price * i.qty, 0);
+  const getSize = (p: Product) => selectedSize[p.id] ?? (p.sizes.includes(50) ? 50 : p.sizes[0]);
+
+  const cartItems = cart.map((c) => {
+    const p = PRODUCTS.find((x) => x.id === c.id)!;
+    return { ...p, size: c.size, qty: c.qty, unitPrice: PRICES[c.size] };
+  });
+  const subtotal = cartItems.reduce((s, i) => s + i.unitPrice * i.qty, 0);
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
 
-  const addToCart = (id: string) => {
+  const addToCart = (id: string, size: Size) => {
     setCart((c) => {
-      const existing = c.find((i) => i.id === id);
-      if (existing) return c.map((i) => (i.id === id ? { ...i, qty: i.qty + 1 } : i));
-      return [...c, { id, qty: 1 }];
+      const ex = c.find((i) => i.id === id && i.size === size);
+      if (ex) return c.map((i) => (i === ex ? { ...i, qty: i.qty + 1 } : i));
+      return [...c, { id, size, qty: 1 }];
     });
     setCartOpen(true);
   };
-  const updateQty = (id: string, delta: number) =>
+  const updateQty = (id: string, size: Size, delta: number) =>
     setCart((c) =>
       c
-        .map((i) => (i.id === id ? { ...i, qty: i.qty + delta } : i))
+        .map((i) => (i.id === id && i.size === size ? { ...i, qty: i.qty + delta } : i))
         .filter((i) => i.qty > 0),
     );
-  const removeItem = (id: string) => setCart((c) => c.filter((i) => i.id !== id));
+  const removeItem = (id: string, size: Size) =>
+    setCart((c) => c.filter((i) => !(i.id === id && i.size === size)));
+
+  const whatsappCheckout = () => {
+    const lines = cartItems.map(
+      (i) => `• ${i.name} (${i.size}ml) × ${i.qty} = ${i.unitPrice * i.qty} ج.م`,
+    );
+    const msg = encodeURIComponent(
+      `السلام عليكم، أود الطلب من MUSK:\n${lines.join("\n")}\n\nالإجمالي: ${subtotal} ج.م`,
+    );
+    window.open(`https://wa.me/${PHONE_INTL.replace("+", "")}?text=${msg}`, "_blank");
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -182,11 +240,19 @@ function Home() {
               <a href="#collection" className="hover:text-gold transition">Collection</a>
               <a href="#experience" className="hover:text-gold transition">Fragrance</a>
               <a href="#about" className="hover:text-gold transition">Maison</a>
+              <a href="#contact" className="hover:text-gold transition">Contact</a>
             </nav>
-            <a href="#top" className="font-display text-2xl tracking-[0.3em] text-gold">
-              ANUBIS
+            <a href="#top" className="font-display text-2xl tracking-[0.45em] text-gold">
+              MUSK
             </a>
             <div className="flex items-center gap-5 text-foreground/70">
+              <a
+                href={`tel:${PHONE}`}
+                className="hidden sm:flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-gold/80 hover:text-gold transition"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                {PHONE}
+              </a>
               <button aria-label="Search" className="hover:text-gold transition hidden sm:block">
                 <Search className="h-4 w-4" />
               </button>
@@ -216,24 +282,28 @@ function Home() {
             </button>
           </div>
           <nav className="flex flex-col items-center gap-8 pt-16 font-display text-4xl text-foreground">
-            {["Collection", "Fragrance", "Maison", "Gifts"].map((l) => (
+            {["Collection", "Fragrance", "Maison", "Contact"].map((l) => (
               <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}>
                 {l}
               </a>
             ))}
+            <a
+              href={`tel:${PHONE}`}
+              className="mt-6 text-gold text-lg tracking-[0.3em]"
+            >
+              {PHONE}
+            </a>
           </nav>
         </div>
       )}
 
       {/* HERO */}
       <section id="top" className="relative flex min-h-screen items-center justify-center overflow-hidden pt-24">
-        {/* Light rays */}
         <div className="pointer-events-none absolute inset-0 animate-rays" aria-hidden>
           <div className="absolute left-1/2 top-1/2 h-[140vh] w-[140vh] -translate-x-1/2 -translate-y-1/2 rounded-full"
                style={{ background: "var(--gradient-radial-glow)" }} />
         </div>
 
-        {/* Floating particles */}
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           {Array.from({ length: 28 }).map((_, i) => (
             <span
@@ -253,42 +323,37 @@ function Home() {
           ))}
         </div>
 
-        {/* Smoke wisps */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2" aria-hidden>
-          {Array.from({ length: 4 }).map((_, i) => (
-            <span
-              key={i}
-              className="absolute bottom-0 block h-48 w-48 rounded-full"
-              style={{
-                left: `${20 + i * 18}%`,
-                background: "radial-gradient(circle, oklch(0.78 0.13 78 / 0.18), transparent 70%)",
-                filter: "blur(20px)",
-                animation: `smoke ${10 + i * 2}s ease-in ${i * 1.5}s infinite`,
-              }}
-            />
-          ))}
-        </div>
-
         <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:px-12">
           <div className="order-2 text-center lg:order-1 lg:text-left animate-fade-up">
-            <p className="eyebrow mb-6">Maison Anubis · Est. MMXXIV</p>
+            <p className="eyebrow mb-6">Born in Egypt · Inspired by Eternity</p>
             <h1 className="font-display text-5xl leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl">
-              Luxury Scents.
+              A Journey
               <br />
-              <span className="text-gold italic">Unforgettable</span>
+              <span className="text-gold italic">of Senses</span>
               <br />
-              Presence.
+              Rooted in Heritage.
             </h1>
             <p className="mx-auto mt-8 max-w-md text-base leading-relaxed text-muted-foreground lg:mx-0">
-              A rare olfactive house where French haute parfumerie meets the
-              gilded mystery of ancient Egypt. Crafted in micro-batches by hand.
+              MUSK — Extrait de Parfum. عطور نادرة تُصاغ بإلهام فرنسي وروح مصرية،
+              مكوّنة من التوابل والأخشاب والفواكه النبيلة.
             </p>
+
+            {/* Quick price strip */}
+            <div className="mx-auto mt-8 grid max-w-md grid-cols-3 gap-3 lg:mx-0">
+              {([35, 50, 100] as Size[]).map((s) => (
+                <div key={s} className="glass rounded-sm border border-gold/20 px-3 py-3 text-center">
+                  <div className="font-display text-lg text-gold">{s}ml</div>
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{PRICES[s]} ج.م</div>
+                </div>
+              ))}
+            </div>
+
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
               <a href="#collection" className="btn-gold btn-gold-hover">
                 Discover the Collection <ArrowRight className="h-3.5 w-3.5" />
               </a>
-              <a href="#experience" className="btn-ghost-gold hover:text-gold hover:border-gold/70">
-                The Fragrance Wheel
+              <a href={`tel:${PHONE}`} className="btn-ghost-gold hover:text-gold hover:border-gold/70">
+                <Phone className="h-3.5 w-3.5 mr-2 inline" /> {PHONE}
               </a>
             </div>
           </div>
@@ -298,20 +363,16 @@ function Home() {
               <div className="absolute inset-0 -z-10 blur-3xl"
                    style={{ background: "var(--gradient-radial-glow)" }} />
               <img
-                src={heroBottle}
-                alt="Maison Anubis signature perfume bottle with Egyptian gold engravings"
+                src={hero}
+                alt="MUSK Extrait de Parfum — luxury bottle with Egyptian heritage"
                 width={540}
                 height={810}
-                className="relative max-h-[80vh] w-auto animate-cinematic-zoom drop-shadow-[0_40px_60px_rgba(212,175,55,0.25)]"
+                className="relative max-h-[82vh] w-auto rounded-sm animate-cinematic-zoom drop-shadow-[0_40px_60px_rgba(212,175,55,0.35)]"
               />
-              {/* reflection */}
-              <div className="absolute -bottom-10 left-1/2 h-32 w-3/4 -translate-x-1/2 rounded-[50%] opacity-50 blur-2xl"
-                   style={{ background: "radial-gradient(ellipse, oklch(0.78 0.13 78 / 0.45), transparent 70%)" }} />
             </div>
           </div>
         </div>
 
-        {/* scroll cue */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-foreground/40">
           Scroll
         </div>
@@ -322,7 +383,7 @@ function Home() {
         <div className="flex animate-marquee whitespace-nowrap font-display text-2xl text-gold/70">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex items-center gap-16 px-8">
-              {["Grasse · France", "Cairo · Egypt", "Hand-Poured", "Micro-Batch", "Cruelty Free", "100% Niche"].map((t) => (
+              {["Born in Egypt", "Inspired by Eternity", "Spices · Woods · Fruits", "Hand-Poured", "Micro-Batch", "100% Niche"].map((t) => (
                 <span key={t} className="flex items-center gap-16 italic">
                   {t} <Sparkles className="h-4 w-4 text-gold" />
                 </span>
@@ -337,20 +398,20 @@ function Home() {
         <div className="grid items-center gap-16 lg:grid-cols-2">
           <div className="relative">
             <img
-              src={aboutImg}
-              alt="Master perfumer composing a fragrance in atelier"
+              src={parfumeur}
+              alt="MUSK Parfumeur — signature crystal bottle and gold coffret"
               loading="lazy"
               width={1280}
-              height={960}
+              height={1700}
               className="w-full rounded-sm border border-border/40 shadow-[var(--shadow-deep)]"
             />
             <div className="absolute -bottom-8 -right-4 glass-strong px-8 py-6 lg:-right-12">
-              <div className="font-display text-5xl text-gold">12</div>
-              <div className="eyebrow mt-1">Master Compositions</div>
+              <div className="font-display text-5xl text-gold">7</div>
+              <div className="eyebrow mt-1">Signature Compositions</div>
             </div>
           </div>
           <div>
-            <p className="eyebrow mb-6">La Maison</p>
+            <p className="eyebrow mb-6">La Maison MUSK</p>
             <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
               A House Built on
               <br />
@@ -358,18 +419,16 @@ function Home() {
             </h2>
             <div className="hairline my-10 w-24" />
             <p className="text-base leading-loose text-muted-foreground">
-              Born from a meeting of two civilizations of scent — the master perfumers
-              of Grasse and the ancient incense traders of the Nile — Maison Anubis
-              composes fragrances that refuse to be forgotten.
+              من قلب الإسكندرية وصعيد مصر إلى مدرسة العطور الفرنسية في غراس،
+              تُولد عطور MUSK من لقاء حضارتين. كل تركيبة تنضج لستة أشهر،
+              وكل زجاجة تُصاغ وتُختم باليد.
             </p>
             <p className="mt-6 text-base leading-loose text-muted-foreground">
-              Each formula matures for a minimum of six months. Every bottle is
-              hand-engraved, hand-filled, and numbered. We do not chase trends;
-              we carve presence.
+              لا نلاحق الموضة — نحن ننحت حضورًا لا يُنسى.
             </p>
             <div className="mt-12 grid grid-cols-3 gap-6 border-t border-border/40 pt-10">
               {[
-                ["18 mo", "Maceration"],
+                ["6 mo", "Maceration"],
                 ["100%", "Natural Oils"],
                 ["By Hand", "Bottled"],
               ].map(([v, l]) => (
@@ -390,8 +449,13 @@ function Home() {
             <div>
               <p className="eyebrow mb-4">The Collection</p>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl">
-                Four <span className="text-gold italic">Olfactive</span> Statements.
+                Seven <span className="text-gold italic">Olfactive</span> Statements.
               </h2>
+              <p className="mt-4 max-w-lg text-sm text-muted-foreground">
+                اختر حجمك — <span className="text-gold">35مل · 350ج.م</span> ·
+                <span className="text-gold"> 50مل · 450ج.م</span> ·
+                <span className="text-gold"> 100مل · 600ج.م</span>
+              </p>
             </div>
             <div className="flex flex-wrap gap-2">
               {FAMILIES.map((f) => (
@@ -410,52 +474,76 @@ function Home() {
             </div>
           </div>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {filtered.map((p, idx) => (
-              <article
-                key={p.id}
-                className="group relative overflow-hidden rounded-sm border border-border/30 bg-background/60 transition-all duration-700 hover:border-gold/50 hover:-translate-y-2"
-                style={{ animation: `fade-up 0.8s ${idx * 0.1}s both` }}
-              >
-                <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-card to-background">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    loading="lazy"
-                    width={800}
-                    height={1024}
-                    className="h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
-                  <button
-                    aria-label="Wishlist"
-                    className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full glass text-gold opacity-0 transition group-hover:opacity-100"
-                  >
-                    <Heart className="h-4 w-4" />
-                  </button>
-                  {/* notes overlay on hover */}
-                  <div className="absolute inset-x-0 bottom-0 translate-y-full bg-background/95 p-5 text-xs leading-relaxed text-muted-foreground backdrop-blur-md transition-transform duration-500 group-hover:translate-y-0">
-                    <div><span className="text-gold">Top · </span>{p.notes.top}</div>
-                    <div className="mt-1"><span className="text-gold">Heart · </span>{p.notes.heart}</div>
-                    <div className="mt-1"><span className="text-gold">Base · </span>{p.notes.base}</div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-gold/80">{p.family}</p>
-                  <h3 className="mt-2 font-display text-2xl">{p.name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{p.subtitle}</p>
-                  <div className="mt-5 flex items-center justify-between">
-                    <span className="font-display text-xl text-gold">${p.price}</span>
+          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {filtered.map((p, idx) => {
+              const size = getSize(p);
+              return (
+                <article
+                  key={p.id}
+                  className="group relative overflow-hidden rounded-sm border border-border/30 bg-background/60 transition-all duration-700 hover:border-gold/50 hover:-translate-y-2"
+                  style={{ animation: `fade-up 0.8s ${idx * 0.08}s both` }}
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-card to-background">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      loading="lazy"
+                      width={800}
+                      height={1024}
+                      className="h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
                     <button
-                      onClick={() => addToCart(p.id)}
-                      className="text-[10px] uppercase tracking-[0.3em] text-foreground/70 transition hover:text-gold"
+                      aria-label="Wishlist"
+                      className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full glass text-gold opacity-0 transition group-hover:opacity-100"
                     >
-                      Add — <span className="text-gold">+</span>
+                      <Heart className="h-4 w-4" />
                     </button>
+                    <div className="absolute inset-x-0 bottom-0 translate-y-full bg-background/95 p-5 text-xs leading-relaxed text-muted-foreground backdrop-blur-md transition-transform duration-500 group-hover:translate-y-0">
+                      <div><span className="text-gold">Top · </span>{p.notes.top}</div>
+                      <div className="mt-1"><span className="text-gold">Heart · </span>{p.notes.heart}</div>
+                      <div className="mt-1"><span className="text-gold">Base · </span>{p.notes.base}</div>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                  <div className="p-6">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-gold/80">{p.family}</p>
+                    <h3 className="mt-2 font-display text-2xl">{p.name}</h3>
+                    <p className="mt-1 text-xs text-muted-foreground">{p.subtitle}</p>
+
+                    {/* Size selector */}
+                    {p.sizes.length > 1 && (
+                      <div className="mt-4 flex gap-1.5">
+                        {p.sizes.map((s) => (
+                          <button
+                            key={s}
+                            onClick={() => setSelectedSize((m) => ({ ...m, [p.id]: s }))}
+                            className={`flex-1 border px-2 py-1.5 text-[10px] uppercase tracking-[0.18em] transition ${
+                              size === s
+                                ? "border-gold bg-gold/10 text-gold"
+                                : "border-border/60 text-foreground/60 hover:border-gold/50"
+                            }`}
+                          >
+                            {s}ml
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="mt-5 flex items-center justify-between">
+                      <span className="font-display text-xl text-gold">
+                        {PRICES[size]} <span className="text-xs">ج.م</span>
+                      </span>
+                      <button
+                        onClick={() => addToCart(p.id, size)}
+                        className="text-[10px] uppercase tracking-[0.3em] text-foreground/70 transition hover:text-gold"
+                      >
+                        Add — <span className="text-gold">+</span>
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -536,14 +624,16 @@ function Home() {
                     </div>
                     <h3 className="mt-3 font-display text-2xl">{p.name}</h3>
                     <p className="mt-1 text-xs text-muted-foreground">{p.subtitle}</p>
-                    <p className="mt-4 font-display text-xl text-gold">${p.price}</p>
+                    <p className="mt-4 font-display text-xl text-gold">
+                      from {PRICES[35]} <span className="text-xs">ج.م</span>
+                    </p>
                   </div>
                 </div>
                 <button
-                  onClick={() => addToCart(p.id)}
+                  onClick={() => addToCart(p.id, 50)}
                   className="mt-6 w-full border border-gold/40 py-3 text-[10px] uppercase tracking-[0.3em] text-gold transition hover:bg-gold hover:text-background"
                 >
-                  Add to Cart
+                  Add 50ml — {PRICES[50]} ج.م
                 </button>
               </div>
             ))}
@@ -563,9 +653,8 @@ function Home() {
             </h2>
             <div className="hairline my-10 w-24" />
             <p className="max-w-md text-base leading-loose text-muted-foreground">
-              Each Maison Anubis fragrance arrives in a hand-finished obsidian
-              coffret, sealed in gold silk and stamped with the cartouche of the
-              House. A ceremony of unwrapping designed to last a lifetime.
+              كل عطر من MUSK يصل في علبة أوبسيديان سوداء مزخرفة باليد ومختومة
+              بحرير ذهبي وشعار الدار — طقس فتح يبقى ذكرى للأبد.
             </p>
             <a href="#collection" className="btn-gold btn-gold-hover mt-10">
               Compose a Gift <ArrowRight className="h-3.5 w-3.5" />
@@ -574,7 +663,7 @@ function Home() {
           <div className="relative">
             <img
               src={giftImg}
-              alt="Maison Anubis black gift box with gold ribbon"
+              alt="MUSK black gift box with gold ribbon"
               loading="lazy"
               width={1280}
               height={960}
@@ -615,34 +704,60 @@ function Home() {
         </div>
       </section>
 
-      {/* NEWSLETTER */}
-      <section className="relative overflow-hidden py-32">
-        <div className="absolute inset-0 -z-10 opacity-60"
+      {/* CONTACT */}
+      <section id="contact" className="relative overflow-hidden py-32">
+        <div className="absolute inset-0 -z-10 opacity-50"
              style={{ background: "var(--gradient-radial-glow)" }} />
-        <div className="mx-auto max-w-3xl px-6 text-center lg:px-12">
-          <p className="eyebrow mb-4">The Inner Circle</p>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl">
-            Receive the <span className="text-gold italic">Private</span> Editions.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-muted-foreground">
-            Limited compositions, atelier invitations, and the secret history
-            behind each fragrance — delivered only to those who ask.
-          </p>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:flex-row"
-          >
-            <input
-              type="email"
-              required
-              placeholder="your@private.address"
-              className="flex-1 border border-border bg-background/60 px-6 py-4 text-sm tracking-wider text-foreground placeholder:text-muted-foreground/60 outline-none transition focus:border-gold"
-            />
-            <button type="submit" className="btn-gold btn-gold-hover">Subscribe</button>
-          </form>
-          <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/60">
-            By appointment only — unsubscribe at any time.
-          </p>
+        <div className="mx-auto max-w-6xl px-6 lg:px-12">
+          <div className="text-center">
+            <p className="eyebrow mb-4">Atelier MUSK</p>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl">
+              Visit. <span className="text-gold italic">Call.</span> Discover.
+            </h2>
+          </div>
+
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
+            <a
+              href={`tel:${PHONE}`}
+              className="glass-strong group flex flex-col items-center rounded-sm p-10 text-center transition hover:-translate-y-1 hover:border-gold/60"
+            >
+              <div className="grid h-14 w-14 place-items-center rounded-full border border-gold/40 text-gold transition group-hover:bg-gold group-hover:text-background">
+                <Phone className="h-5 w-5" />
+              </div>
+              <p className="eyebrow mt-6">Hotline</p>
+              <p className="mt-3 font-display text-3xl text-gold" dir="ltr">{PHONE}</p>
+              <p className="mt-2 text-xs text-muted-foreground">اتصل أو اطلب عبر واتساب</p>
+            </a>
+
+            <div className="glass-strong flex flex-col items-center rounded-sm p-10 text-center">
+              <div className="grid h-14 w-14 place-items-center rounded-full border border-gold/40 text-gold">
+                <Clock className="h-5 w-5" />
+              </div>
+              <p className="eyebrow mt-6">Working Hours</p>
+              <p className="mt-3 font-display text-xl text-foreground">{HOURS}</p>
+              <p className="mt-2 text-xs text-muted-foreground">الجمعة مغلق</p>
+            </div>
+
+            <div className="glass-strong flex flex-col items-center rounded-sm p-10 text-center">
+              <div className="grid h-14 w-14 place-items-center rounded-full border border-gold/40 text-gold">
+                <MapPin className="h-5 w-5" />
+              </div>
+              <p className="eyebrow mt-6">Maison</p>
+              <p className="mt-3 font-display text-xl text-foreground">Cairo · Egypt</p>
+              <p className="mt-2 text-xs text-muted-foreground">Atelier privé — بالحجز المسبق</p>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <a
+              href={`https://wa.me/${PHONE_INTL.replace("+", "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gold btn-gold-hover"
+            >
+              Order via WhatsApp <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -650,29 +765,42 @@ function Home() {
       <footer className="border-t border-border/40 bg-background py-16">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-4 lg:px-12">
           <div className="lg:col-span-2">
-            <p className="font-display text-3xl tracking-[0.3em] text-gold">ANUBIS</p>
+            <p className="font-display text-3xl tracking-[0.45em] text-gold">MUSK</p>
+            <p className="mt-2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground">Extrait de Parfum</p>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Maison Anubis — Niche fragrances composed in Grasse, inspired by the
-              gilded heritage of ancient Egypt.
+              Born in Egypt · Inspired by Eternity. عطور فاخرة تجمع بين أناقة
+              غراس وغموض النيل.
             </p>
           </div>
-          {[
-            { title: "House", links: ["The Maison", "Atelier", "Press"] },
-            { title: "Care", links: ["Contact", "Shipping", "Privacy"] },
-          ].map((col) => (
-            <div key={col.title}>
-              <p className="eyebrow mb-5">{col.title}</p>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                {col.links.map((l) => (
-                  <li key={l}><a href="#" className="hover:text-gold transition">{l}</a></li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div>
+            <p className="eyebrow mb-5">Contact</p>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <Phone className="h-3.5 w-3.5 text-gold" />
+                <a href={`tel:${PHONE}`} className="hover:text-gold transition" dir="ltr">{PHONE}</a>
+              </li>
+              <li className="flex items-start gap-2">
+                <Clock className="mt-0.5 h-3.5 w-3.5 text-gold" />
+                <span>{HOURS}</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <MapPin className="h-3.5 w-3.5 text-gold" />
+                <span>Cairo · Egypt</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p className="eyebrow mb-5">House</p>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li><a href="#about" className="hover:text-gold transition">The Maison</a></li>
+              <li><a href="#collection" className="hover:text-gold transition">Collection</a></li>
+              <li><a href="#contact" className="hover:text-gold transition">Contact</a></li>
+            </ul>
+          </div>
         </div>
         <div className="mx-auto mt-16 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-border/30 px-6 pt-8 text-[10px] uppercase tracking-[0.3em] text-muted-foreground sm:flex-row lg:px-12">
-          <span>© MMXXIV Maison Anubis</span>
-          <span>Paris · Cairo</span>
+          <span>© MMXXVI MUSK Parfumeur</span>
+          <span>Born in Egypt · Inspired by Eternity</span>
         </div>
       </footer>
 
@@ -705,21 +833,21 @@ function Home() {
               ) : (
                 <ul className="space-y-6">
                   {cartItems.map((i) => (
-                    <li key={i.id} className="flex gap-4 border-b border-border/20 pb-6">
+                    <li key={`${i.id}-${i.size}`} className="flex gap-4 border-b border-border/20 pb-6">
                       <img src={i.image} alt={i.name} className="h-24 w-20 rounded-sm object-cover" />
                       <div className="flex-1 min-w-0">
                         <h4 className="font-display text-lg">{i.name}</h4>
-                        <p className="text-xs text-muted-foreground">{i.subtitle}</p>
-                        <p className="mt-2 text-sm text-gold">${i.price * i.qty}</p>
+                        <p className="text-xs text-muted-foreground">{i.size}ml</p>
+                        <p className="mt-2 text-sm text-gold">{i.unitPrice * i.qty} ج.م</p>
                         <div className="mt-3 flex items-center gap-3">
-                          <button onClick={() => updateQty(i.id, -1)} className="grid h-7 w-7 place-items-center border border-border/60 text-gold hover:border-gold">
+                          <button onClick={() => updateQty(i.id, i.size, -1)} className="grid h-7 w-7 place-items-center border border-border/60 text-gold hover:border-gold">
                             <Minus className="h-3 w-3" />
                           </button>
                           <span className="text-sm">{i.qty}</span>
-                          <button onClick={() => updateQty(i.id, 1)} className="grid h-7 w-7 place-items-center border border-border/60 text-gold hover:border-gold">
+                          <button onClick={() => updateQty(i.id, i.size, 1)} className="grid h-7 w-7 place-items-center border border-border/60 text-gold hover:border-gold">
                             <Plus className="h-3 w-3" />
                           </button>
-                          <button onClick={() => removeItem(i.id)} className="ml-auto text-muted-foreground hover:text-destructive">
+                          <button onClick={() => removeItem(i.id, i.size)} className="ml-auto text-muted-foreground hover:text-destructive">
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
@@ -733,11 +861,13 @@ function Home() {
               <div className="border-t border-border/30 p-6">
                 <div className="flex items-center justify-between">
                   <span className="eyebrow">Subtotal</span>
-                  <span className="font-display text-2xl text-gold">${subtotal}</span>
+                  <span className="font-display text-2xl text-gold">{subtotal} ج.م</span>
                 </div>
-                <button className="btn-gold btn-gold-hover mt-6 w-full">Checkout</button>
+                <button onClick={whatsappCheckout} className="btn-gold btn-gold-hover mt-6 w-full">
+                  Checkout via WhatsApp
+                </button>
                 <p className="mt-3 text-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                  Complimentary worldwide shipping
+                  الشحن لكل محافظات مصر · الدفع عند الاستلام
                 </p>
               </div>
             )}
