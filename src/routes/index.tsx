@@ -452,7 +452,7 @@ function Home() {
         <div className="flex animate-marquee whitespace-nowrap font-display text-2xl text-gold/70">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex items-center gap-16 px-8">
-              {["Born in Egypt", "Inspired by Eternity", "Spices · Woods · Fruits", "Hand-Poured", "Micro-Batch", "100% Niche"].map((t) => (
+              {["30% OFF · خصم لفترة محدودة", "Born in Egypt", "Inspired by Eternity", "Spices · Woods · Fruits", "Hand-Poured", "Micro-Batch"].map((t) => (
                 <span key={t} className="flex items-center gap-16 italic">
                   {t} <Sparkles className="h-4 w-4 text-gold" />
                 </span>
