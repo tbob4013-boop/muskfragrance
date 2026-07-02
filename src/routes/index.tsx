@@ -518,7 +518,7 @@ function Home() {
             <div>
               <p className="eyebrow mb-4">The Collection</p>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl">
-                Seven <span className="text-gold italic">Olfactive</span> Statements.
+                Twelve <span className="text-gold italic">Olfactive</span> Statements.
               </h2>
               <p className="mt-4 max-w-lg text-sm text-muted-foreground">
                 <span className="rounded-sm bg-gold/15 px-2 py-0.5 text-gold font-semibold tracking-widest text-[10px] mr-2">−30% OFF</span>
