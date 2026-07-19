@@ -29,6 +29,12 @@ import nuitEtoileeAsset from "@/assets/musk/new-Gemini_Generated_Image_ye0a8pye0
 import ambreDoreAsset from "@/assets/musk/new-RRF.jpg.asset.json";
 import emeraudeAsset from "@/assets/musk/new-33.jpg.asset.json";
 import rougePassionAsset from "@/assets/musk/new-Gemini_Generated_Image_7x9ogr7x9ogr7x9o.jpg.asset.json";
+import lotusRoyalAsset from "@/assets/musk/musk-lotus-royal.jpg.asset.json";
+import cordageAsset from "@/assets/musk/musk-cordage.jpg.asset.json";
+import emeraldSilkAsset from "@/assets/musk/musk-emerald-silk.jpg.asset.json";
+import violetLotusAsset from "@/assets/musk/musk-violet-lotus.jpg.asset.json";
+import alhambraAsset from "@/assets/musk/musk-alhambra.jpg.asset.json";
+import mediterraneeAsset from "@/assets/musk/musk-mediterranee.jpg.asset.json";
 
 import noteWoody from "@/assets/note-woody.jpg";
 import noteSpice from "@/assets/note-spice.jpg";
@@ -49,6 +55,12 @@ const nuitEtoilee = nuitEtoileeAsset.url;
 const ambreDore = ambreDoreAsset.url;
 const emeraude = emeraudeAsset.url;
 const rougePassion = rougePassionAsset.url;
+const lotusRoyal = lotusRoyalAsset.url;
+const cordage = cordageAsset.url;
+const emeraldSilk = emeraldSilkAsset.url;
+const violetLotus = violetLotusAsset.url;
+const alhambra = alhambraAsset.url;
+const mediterranee = mediterraneeAsset.url;
 
 const PHONE = "01202911463";
 const PHONE_INTL = "+201202911463";
