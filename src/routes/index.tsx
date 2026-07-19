@@ -359,13 +359,43 @@ function Home() {
     setCart((c) => c.filter((i) => !(i.id === id && i.size === size)));
 
   const whatsappCheckout = () => {
-    const lines = cartItems.map(
-      (i) => `• ${i.name} (${i.size}ml) × ${i.qty} = ${i.unitPrice * i.qty} ج.م`,
-    );
+    if (cartItems.length === 0) return;
     const original = cartItems.reduce((s, i) => s + PRICES[i.size] * i.qty, 0);
-    const msg = encodeURIComponent(
-      `السلام عليكم، أود الطلب من MUSK:\n${lines.join("\n")}\n\nالسعر قبل الخصم: ${original} ج.م\nخصم 30%: −${original - subtotal} ج.م\nالإجمالي بعد الخصم: ${subtotal} ج.م`,
-    );
+    const savings = original - subtotal;
+    const orderNo = `MUSK-${Date.now().toString().slice(-6)}`;
+    const itemLines = cartItems
+      .map((i, idx) => {
+        const lineOriginal = PRICES[i.size] * i.qty;
+        const lineTotal = i.unitPrice * i.qty;
+        return [
+          `${idx + 1}) ${i.name}`,
+          `   • الحجم: ${i.size} مل`,
+          `   • الكمية: ${i.qty}`,
+          `   • سعر القطعة بعد الخصم: ${i.unitPrice} ج.م  (بدلاً من ${PRICES[i.size]} ج.م)`,
+          `   • إجمالي البند: ${lineTotal} ج.م  (توفير ${lineOriginal - lineTotal} ج.م)`,
+        ].join("\n");
+      })
+      .join("\n\n");
+    const totalUnits = cartItems.reduce((s, i) => s + i.qty, 0);
+    const body = [
+      "السلام عليكم 🌙",
+      "أود تأكيد الطلب من MUSK — Extrait de Parfum",
+      `رقم الطلب: ${orderNo}`,
+      "",
+      "🛍️ تفاصيل الطلب:",
+      itemLines,
+      "",
+      "———————————————",
+      `عدد القطع: ${totalUnits}`,
+      `السعر قبل الخصم: ${original} ج.م`,
+      `خصم 30%: −${savings} ج.م`,
+      `💰 الإجمالي المستحق: ${subtotal} ج.م`,
+      "———————————————",
+      "",
+      "📍 برجاء تأكيد التوفر وإرسال بيانات الشحن (الاسم / العنوان / رقم إضافي).",
+      `📞 للتواصل: ${PHONE}`,
+    ].join("\n");
+    const msg = encodeURIComponent(body);
     window.open(`https://wa.me/${PHONE_INTL.replace("+", "")}?text=${msg}`, "_blank");
   };
 
