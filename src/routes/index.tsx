@@ -29,6 +29,12 @@ import nuitEtoileeAsset from "@/assets/musk/new-Gemini_Generated_Image_ye0a8pye0
 import ambreDoreAsset from "@/assets/musk/new-RRF.jpg.asset.json";
 import emeraudeAsset from "@/assets/musk/new-33.jpg.asset.json";
 import rougePassionAsset from "@/assets/musk/new-Gemini_Generated_Image_7x9ogr7x9ogr7x9o.jpg.asset.json";
+import lotusRoyalAsset from "@/assets/musk/musk-lotus-royal.jpg.asset.json";
+import cordageAsset from "@/assets/musk/musk-cordage.jpg.asset.json";
+import emeraldSilkAsset from "@/assets/musk/musk-emerald-silk.jpg.asset.json";
+import violetLotusAsset from "@/assets/musk/musk-violet-lotus.jpg.asset.json";
+import alhambraAsset from "@/assets/musk/musk-alhambra.jpg.asset.json";
+import mediterraneeAsset from "@/assets/musk/musk-mediterranee.jpg.asset.json";
 
 import noteWoody from "@/assets/note-woody.jpg";
 import noteSpice from "@/assets/note-spice.jpg";
@@ -49,6 +55,12 @@ const nuitEtoilee = nuitEtoileeAsset.url;
 const ambreDore = ambreDoreAsset.url;
 const emeraude = emeraudeAsset.url;
 const rougePassion = rougePassionAsset.url;
+const lotusRoyal = lotusRoyalAsset.url;
+const cordage = cordageAsset.url;
+const emeraldSilk = emeraldSilkAsset.url;
+const violetLotus = violetLotusAsset.url;
+const alhambra = alhambraAsset.url;
+const mediterranee = mediterraneeAsset.url;
 
 const PHONE = "01202911463";
 const PHONE_INTL = "+201202911463";
@@ -220,6 +232,72 @@ const PRODUCTS: Product[] = [
     reviews: 231,
     sizes: [35, 50, 100],
   },
+  {
+    id: "musk-lotus-royal",
+    name: "Musk Lotus Royal",
+    subtitle: "Extrait de Parfum · Violet Lotus Ceremony",
+    image: lotusRoyal,
+    family: "Oriental",
+    notes: { top: "Blue Lotus, Saffron", heart: "Purple Iris, Amber Resin", base: "Oud, Myrrh, Musk" },
+    rating: 5.0,
+    reviews: 189,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-cordage",
+    name: "Musk Cordage",
+    subtitle: "Extrait de Parfum · Amber Rope Edition",
+    image: cordage,
+    family: "Woody",
+    notes: { top: "Amber, Cognac", heart: "Tobacco, Leather", base: "Oud, Vanilla, Benzoin" },
+    rating: 4.9,
+    reviews: 176,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-emerald-silk",
+    name: "Musk Emerald Silk",
+    subtitle: "Eau de Parfum · Sapphire on Emerald",
+    image: emeraldSilk,
+    family: "Floral",
+    notes: { top: "Jasmine Sambac, Bergamot", heart: "Neroli, Orange Blossom", base: "White Musk, Cedar" },
+    rating: 5.0,
+    reviews: 214,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-violet-lotus",
+    name: "Musk Violet Lotus",
+    subtitle: "Eau de Parfum · Frosted Amethyst",
+    image: violetLotus,
+    family: "Oriental",
+    notes: { top: "Violet, Cardamom", heart: "Lotus, Damask Rose", base: "Amber, Sandalwood" },
+    rating: 4.9,
+    reviews: 168,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-alhambra",
+    name: "Musk Alhambra",
+    subtitle: "Eau de Parfum · Andalusian Palace",
+    image: alhambra,
+    family: "Floral",
+    notes: { top: "Orange Blossom, Jasmine", heart: "Rose, Iris", base: "Cedar, Amber, Musk" },
+    rating: 5.0,
+    reviews: 197,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-mediterranee",
+    name: "Musk Méditerranée",
+    subtitle: "Eau de Parfum · Coastal Citrus Breeze",
+    image: mediterranee,
+    family: "Fresh",
+    notes: { top: "Sicilian Lemon, Neroli", heart: "Jasmine, Sea Breeze", base: "White Musk, Ambergris" },
+    rating: 4.9,
+    reviews: 152,
+    sizes: [35, 50, 100],
+  },
 ];
 
 const FAMILIES: Family[] = ["All", "Oriental", "Woody", "Floral", "Fresh", "Serum"];
@@ -281,13 +359,43 @@ function Home() {
     setCart((c) => c.filter((i) => !(i.id === id && i.size === size)));
 
   const whatsappCheckout = () => {
-    const lines = cartItems.map(
-      (i) => `• ${i.name} (${i.size}ml) × ${i.qty} = ${i.unitPrice * i.qty} ج.م`,
-    );
+    if (cartItems.length === 0) return;
     const original = cartItems.reduce((s, i) => s + PRICES[i.size] * i.qty, 0);
-    const msg = encodeURIComponent(
-      `السلام عليكم، أود الطلب من MUSK:\n${lines.join("\n")}\n\nالسعر قبل الخصم: ${original} ج.م\nخصم 30%: −${original - subtotal} ج.م\nالإجمالي بعد الخصم: ${subtotal} ج.م`,
-    );
+    const savings = original - subtotal;
+    const orderNo = `MUSK-${Date.now().toString().slice(-6)}`;
+    const itemLines = cartItems
+      .map((i, idx) => {
+        const lineOriginal = PRICES[i.size] * i.qty;
+        const lineTotal = i.unitPrice * i.qty;
+        return [
+          `${idx + 1}) ${i.name}`,
+          `   • الحجم: ${i.size} مل`,
+          `   • الكمية: ${i.qty}`,
+          `   • سعر القطعة بعد الخصم: ${i.unitPrice} ج.م  (بدلاً من ${PRICES[i.size]} ج.م)`,
+          `   • إجمالي البند: ${lineTotal} ج.م  (توفير ${lineOriginal - lineTotal} ج.م)`,
+        ].join("\n");
+      })
+      .join("\n\n");
+    const totalUnits = cartItems.reduce((s, i) => s + i.qty, 0);
+    const body = [
+      "السلام عليكم 🌙",
+      "أود تأكيد الطلب من MUSK — Extrait de Parfum",
+      `رقم الطلب: ${orderNo}`,
+      "",
+      "🛍️ تفاصيل الطلب:",
+      itemLines,
+      "",
+      "———————————————",
+      `عدد القطع: ${totalUnits}`,
+      `السعر قبل الخصم: ${original} ج.م`,
+      `خصم 30%: −${savings} ج.م`,
+      `💰 الإجمالي المستحق: ${subtotal} ج.م`,
+      "———————————————",
+      "",
+      "📍 برجاء تأكيد التوفر وإرسال بيانات الشحن (الاسم / العنوان / رقم إضافي).",
+      `📞 للتواصل: ${PHONE}`,
+    ].join("\n");
+    const msg = encodeURIComponent(body);
     window.open(`https://wa.me/${PHONE_INTL.replace("+", "")}?text=${msg}`, "_blank");
   };
 
@@ -475,7 +583,7 @@ function Home() {
               className="w-full rounded-sm border border-border/40 shadow-[var(--shadow-deep)]"
             />
             <div className="absolute -bottom-8 -right-4 glass-strong px-8 py-6 lg:-right-12">
-              <div className="font-display text-5xl text-gold">12</div>
+              <div className="font-display text-5xl text-gold">18</div>
               <div className="eyebrow mt-1">Signature Compositions</div>
             </div>
           </div>
