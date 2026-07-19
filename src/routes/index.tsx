@@ -583,7 +583,7 @@ function Home() {
               className="w-full rounded-sm border border-border/40 shadow-[var(--shadow-deep)]"
             />
             <div className="absolute -bottom-8 -right-4 glass-strong px-8 py-6 lg:-right-12">
-              <div className="font-display text-5xl text-gold">12</div>
+              <div className="font-display text-5xl text-gold">18</div>
               <div className="eyebrow mt-1">Signature Compositions</div>
             </div>
           </div>
