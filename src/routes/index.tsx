@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { priceForSize, PRICES, type BottleSize } from "@/lib/pricing";
 import {
   ShoppingBag,
   Search,
@@ -35,6 +36,12 @@ import emeraldSilkAsset from "@/assets/musk/musk-emerald-silk.jpg.asset.json";
 import violetLotusAsset from "@/assets/musk/musk-violet-lotus.jpg.asset.json";
 import alhambraAsset from "@/assets/musk/musk-alhambra.jpg.asset.json";
 import mediterraneeAsset from "@/assets/musk/musk-mediterranee.jpg.asset.json";
+import automneDoreAsset from "@/assets/musk/musk-autumn-amber.jpeg.asset.json";
+import hiverAmbreAsset from "@/assets/musk/musk-winter-amber.jpeg.asset.json";
+import jardinOrAsset from "@/assets/musk/musk-jardin-or.jpeg.asset.json";
+import orientalSagaAsset from "@/assets/musk/musk-oriental-saga.jpeg.asset.json";
+import roseEclipseAsset from "@/assets/musk/musk-rose-eclipse.jpeg.asset.json";
+import ambreIntenseAsset from "@/assets/musk/musk-ambre-intense.jpeg.asset.json";
 
 import noteWoody from "@/assets/note-woody.jpg";
 import noteSpice from "@/assets/note-spice.jpg";
@@ -61,6 +68,12 @@ const emeraldSilk = emeraldSilkAsset.url;
 const violetLotus = violetLotusAsset.url;
 const alhambra = alhambraAsset.url;
 const mediterranee = mediterraneeAsset.url;
+const automneDore = automneDoreAsset.url;
+const hiverAmbre = hiverAmbreAsset.url;
+const jardinOr = jardinOrAsset.url;
+const orientalSaga = orientalSagaAsset.url;
+const roseEclipse = roseEclipseAsset.url;
+const ambreIntense = ambreIntenseAsset.url;
 
 const PHONE = "01202911463";
 const PHONE_INTL = "+201202911463";
@@ -70,10 +83,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "MUSK — Extrait de Parfum · Born in Egypt, Inspired by Eternity" },
-      { name: "description", content: "MUSK — دار عطور فاخرة من قلب مصر. عطور نادرة بإلهام فرنسي وروح شرقية. أحجام 35مل، 50مل، 100مل بأسعار تبدأ من 350 جنيه." },
+      { name: "description", content: "MUSK — دار عطور فاخرة من قلب مصر. عطور نادرة بإلهام فرنسي وروح شرقية. أسعار 350 و450 و600 جنيه لأحجام 35 و50 و100 مل." },
       { property: "og:title", content: "MUSK — Extrait de Parfum" },
       { property: "og:description", content: "Born in Egypt · Inspired by Eternity. عطور فاخرة بإلهام شرقي." },
-      { property: "og:image", content: hero },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -81,11 +95,7 @@ export const Route = createFileRoute("/")({
 });
 
 type Family = "All" | "Oriental" | "Woody" | "Floral" | "Fresh" | "Serum";
-type Size = 35 | 50 | 100;
-
-const PRICES: Record<Size, number> = { 35: 350, 50: 450, 100: 600 };
-const DISCOUNT = 0.3;
-const priced = (s: Size) => Math.round(PRICES[s] * (1 - DISCOUNT));
+type Size = BottleSize;
 
 type Product = {
   id: string;
@@ -298,6 +308,72 @@ const PRODUCTS: Product[] = [
     reviews: 152,
     sizes: [35, 50, 100],
   },
+  {
+    id: "musk-automne-dore",
+    name: "Musk Automne Doré",
+    subtitle: "Eau de Parfum · Golden Autumn",
+    image: automneDore,
+    family: "Oriental",
+    notes: { top: "Mandarin, Pink Pepper, Apple", heart: "Amber, Cinnamon, Rose", base: "Musk, Cedar, Vanilla" },
+    rating: 5.0,
+    reviews: 0,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-nuit-hiver",
+    name: "Musk Nuit d'Hiver",
+    subtitle: "Eau de Parfum · Winter Amber",
+    image: hiverAmbre,
+    family: "Oriental",
+    notes: { top: "Saffron, Bergamot", heart: "Amber, Rose", base: "Musk, Sandalwood" },
+    rating: 5.0,
+    reviews: 0,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-jardin-or",
+    name: "Musk Jardin d'Or",
+    subtitle: "Extrait de Parfum · Garden in Bloom",
+    image: jardinOr,
+    family: "Floral",
+    notes: { top: "Neroli, Green Leaves", heart: "White Flowers, Rose", base: "Musk, Cedar" },
+    rating: 5.0,
+    reviews: 0,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-oriental-saga",
+    name: "Musk Oriental Saga",
+    subtitle: "Extrait de Parfum · An Ode to the Orient",
+    image: orientalSaga,
+    family: "Oriental",
+    notes: { top: "Saffron, Incense", heart: "Rose, Oud", base: "Amber, Sandalwood" },
+    rating: 5.0,
+    reviews: 0,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-rose-eclipse",
+    name: "Musk Rose Éclipse",
+    subtitle: "Eau de Parfum · Rose-Tinted Reverie",
+    image: roseEclipse,
+    family: "Floral",
+    notes: { top: "Bergamot, Pink Pepper", heart: "Rose Petals, Violet", base: "Vanilla, White Musk" },
+    rating: 5.0,
+    reviews: 0,
+    sizes: [35, 50, 100],
+  },
+  {
+    id: "musk-ambre-intense",
+    name: "Musk Ambre Intense",
+    subtitle: "Extrait de Parfum · Amber in Motion",
+    image: ambreIntense,
+    family: "Oriental",
+    notes: { top: "Cardamom, Cinnamon", heart: "Amber, Orange Blossom", base: "Oud, Musk" },
+    rating: 5.0,
+    reviews: 0,
+    sizes: [35, 50, 100],
+  },
 ];
 
 const FAMILIES: Family[] = ["All", "Oriental", "Woody", "Floral", "Fresh", "Serum"];
@@ -336,7 +412,7 @@ function Home() {
 
   const cartItems = cart.map((c) => {
     const p = PRODUCTS.find((x) => x.id === c.id)!;
-    return { ...p, size: c.size, qty: c.qty, unitPrice: priced(c.size) };
+    return { ...p, size: c.size, qty: c.qty, unitPrice: priceForSize(c.size) };
   });
   const subtotal = cartItems.reduce((s, i) => s + i.unitPrice * i.qty, 0);
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
@@ -360,19 +436,16 @@ function Home() {
 
   const whatsappCheckout = () => {
     if (cartItems.length === 0) return;
-    const original = cartItems.reduce((s, i) => s + PRICES[i.size] * i.qty, 0);
-    const savings = original - subtotal;
     const orderNo = `MUSK-${Date.now().toString().slice(-6)}`;
     const itemLines = cartItems
       .map((i, idx) => {
-        const lineOriginal = PRICES[i.size] * i.qty;
         const lineTotal = i.unitPrice * i.qty;
         return [
           `${idx + 1}) ${i.name}`,
           `   • الحجم: ${i.size} مل`,
           `   • الكمية: ${i.qty}`,
-          `   • سعر القطعة بعد الخصم: ${i.unitPrice} ج.م  (بدلاً من ${PRICES[i.size]} ج.م)`,
-          `   • إجمالي البند: ${lineTotal} ج.م  (توفير ${lineOriginal - lineTotal} ج.م)`,
+          `   • سعر القطعة: ${i.unitPrice} ج.م`,
+          `   • إجمالي البند: ${lineTotal} ج.م`,
         ].join("\n");
       })
       .join("\n\n");
@@ -387,8 +460,6 @@ function Home() {
       "",
       "———————————————",
       `عدد القطع: ${totalUnits}`,
-      `السعر قبل الخصم: ${original} ج.م`,
-      `خصم 30%: −${savings} ج.م`,
       `💰 الإجمالي المستحق: ${subtotal} ج.م`,
       "———————————————",
       "",
@@ -517,10 +588,9 @@ function Home() {
             {/* Quick price strip */}
             <div className="mx-auto mt-8 grid max-w-md grid-cols-3 gap-3 lg:mx-0">
               {([35, 50, 100] as Size[]).map((s) => (
-                <div key={s} className="glass rounded-sm border border-gold/20 px-3 py-3 text-center">
+                <div key={s} className="glass rounded-sm border border-rose-gold/30 px-3 py-3 text-center">
                   <div className="font-display text-lg text-gold">{s}ml</div>
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-gold">{priced(s)} ج.م</div>
-                  <div className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground line-through">{PRICES[s]} ج.م</div>
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-rose-gold">{priceForSize(s)} ج.م</div>
                 </div>
               ))}
             </div>
@@ -560,7 +630,7 @@ function Home() {
         <div className="flex animate-marquee whitespace-nowrap font-display text-2xl text-gold/70">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex items-center gap-16 px-8">
-              {["30% OFF · خصم لفترة محدودة", "Born in Egypt", "Inspired by Eternity", "Spices · Woods · Fruits", "Hand-Poured", "Micro-Batch"].map((t) => (
+              {["Rose Gold · Oriental Soul", "Born in Egypt", "Inspired by Eternity", "Spices · Woods · Fruits", "Hand-Poured", "Micro-Batch"].map((t) => (
                 <span key={t} className="flex items-center gap-16 italic">
                   {t} <Sparkles className="h-4 w-4 text-gold" />
                 </span>
@@ -583,7 +653,7 @@ function Home() {
               className="w-full rounded-sm border border-border/40 shadow-[var(--shadow-deep)]"
             />
             <div className="absolute -bottom-8 -right-4 glass-strong px-8 py-6 lg:-right-12">
-              <div className="font-display text-5xl text-gold">18</div>
+              <div className="font-display text-5xl text-gold">{PRODUCTS.length}</div>
               <div className="eyebrow mt-1">Signature Compositions</div>
             </div>
           </div>
@@ -626,13 +696,12 @@ function Home() {
             <div>
               <p className="eyebrow mb-4">The Collection</p>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl">
-                Twelve <span className="text-gold italic">Olfactive</span> Statements.
+                <span className="text-rose-gold italic">Olfactive</span> Stories.
               </h2>
               <p className="mt-4 max-w-lg text-sm text-muted-foreground">
-                <span className="rounded-sm bg-gold/15 px-2 py-0.5 text-gold font-semibold tracking-widest text-[10px] mr-2">−30% OFF</span>
-                <span className="text-gold">35مل · {priced(35)}ج.م</span> <span className="line-through opacity-50">350</span> ·
-                <span className="text-gold"> 50مل · {priced(50)}ج.م</span> <span className="line-through opacity-50">450</span> ·
-                <span className="text-gold"> 100مل · {priced(100)}ج.م</span> <span className="line-through opacity-50">600</span>
+                {PRODUCTS.length} compositions · <span className="text-rose-gold">35مل · {PRICES[35]}ج.م</span> ·
+                <span className="text-gold"> 50مل · {PRICES[50]}ج.م</span> ·
+                <span className="text-rose-gold"> 100مل · {PRICES[100]}ج.م</span>
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -642,8 +711,8 @@ function Home() {
                   onClick={() => setFilter(f)}
                   className={`rounded-full border px-4 py-2 text-[10px] uppercase tracking-[0.28em] transition ${
                     filter === f
-                      ? "border-gold bg-gold text-background"
-                      : "border-border/60 text-foreground/60 hover:border-gold/60 hover:text-gold"
+                      ? "border-rose-gold bg-rose-gold text-background"
+                      : "border-border/60 text-foreground/60 hover:border-rose-gold/60 hover:text-rose-gold"
                   }`}
                 >
                   {f}
@@ -658,7 +727,7 @@ function Home() {
               return (
                 <article
                   key={p.id}
-                  className="group relative overflow-hidden rounded-sm border border-border/30 bg-background/60 transition-all duration-700 hover:border-gold/50 hover:-translate-y-2"
+                  className="group relative overflow-hidden rounded-sm border border-border/30 bg-background/60 transition-all duration-700 hover:border-rose-gold/50 hover:-translate-y-2"
                   style={{ animation: `fade-up 0.8s ${idx * 0.08}s both` }}
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-card to-background">
@@ -684,7 +753,7 @@ function Home() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-gold/80">{p.family}</p>
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-rose-gold/90">{p.family}</p>
                     <h3 className="mt-2 font-display text-2xl">{p.name}</h3>
                     <p className="mt-1 text-xs text-muted-foreground">{p.subtitle}</p>
 
@@ -710,12 +779,8 @@ function Home() {
                     <div className="mt-5 flex items-center justify-between">
                       <span className="flex items-baseline gap-2">
                         <span className="font-display text-xl text-gold">
-                          {priced(size)} <span className="text-xs">ج.م</span>
+                          {priceForSize(size)} <span className="text-xs">ج.م</span>
                         </span>
-                        <span className="text-xs text-muted-foreground line-through">
-                          {PRICES[size]}
-                        </span>
-                        <span className="rounded-sm bg-gold/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-widest text-gold">−30%</span>
                       </span>
                       <button
                         onClick={() => addToCart(p.id, size)}
@@ -810,9 +875,8 @@ function Home() {
                     <p className="mt-1 text-xs text-muted-foreground">{p.subtitle}</p>
                     <p className="mt-4 flex items-baseline gap-2">
                       <span className="font-display text-xl text-gold">
-                        from {priced(35)} <span className="text-xs">ج.م</span>
+                        from {priceForSize(35)} <span className="text-xs">ج.م</span>
                       </span>
-                      <span className="text-xs text-muted-foreground line-through">{PRICES[35]}</span>
                     </p>
                   </div>
                 </div>
@@ -820,7 +884,7 @@ function Home() {
                   onClick={() => addToCart(p.id, 50)}
                   className="mt-6 w-full border border-gold/40 py-3 text-[10px] uppercase tracking-[0.3em] text-gold transition hover:bg-gold hover:text-background"
                 >
-                  Add 50ml — {priced(50)} <span className="line-through opacity-60 ml-1">{PRICES[50]}</span> ج.م
+                  Add 50ml — {priceForSize(50)} ج.م
                 </button>
               </div>
             ))}
@@ -1044,19 +1108,8 @@ function Home() {
                 </ul>
               )}
             </div>
-            {cartItems.length > 0 && (() => {
-              const original = cartItems.reduce((s, i) => s + PRICES[i.size] * i.qty, 0);
-              const savings = original - subtotal;
-              return (
+            {cartItems.length > 0 && (
               <div className="border-t border-border/30 p-6">
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>Original</span>
-                  <span className="line-through">{original} ج.م</span>
-                </div>
-                <div className="mt-1 flex items-center justify-between text-sm">
-                  <span className="text-gold">Discount −30%</span>
-                  <span className="text-gold">−{savings} ج.م</span>
-                </div>
                 <div className="mt-3 flex items-center justify-between border-t border-border/30 pt-3">
                   <span className="eyebrow">Total</span>
                   <span className="font-display text-2xl text-gold">{subtotal} ج.م</span>
@@ -1068,8 +1121,7 @@ function Home() {
                   الشحن لكل محافظات مصر · الدفع عند الاستلام
                 </p>
               </div>
-              );
-            })()}
+            )}
           </aside>
         </div>
       )}

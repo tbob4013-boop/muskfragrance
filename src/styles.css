@@ -32,6 +32,8 @@
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-gold-deep: var(--gold-deep);
+  --color-rose-gold: var(--rose-gold);
+  --color-rose-gold-soft: var(--rose-gold-soft);
 
   --font-display: "Cormorant Garamond", serif;
   --font-sans: "Jost", sans-serif;
@@ -64,8 +66,11 @@
   --gold: oklch(0.82 0.14 80);
   --gold-soft: oklch(0.88 0.09 85);
   --gold-deep: oklch(0.55 0.13 60);
+  --rose-gold: oklch(0.76 0.1 28);
+  --rose-gold-soft: oklch(0.86 0.075 34);
 
-  --gradient-gold: linear-gradient(135deg, oklch(0.88 0.09 85), oklch(0.62 0.14 65) 50%, oklch(0.82 0.14 80));
+  --gradient-gold: linear-gradient(135deg, oklch(0.88 0.09 85), var(--rose-gold-soft) 35%, oklch(0.62 0.14 65) 60%, oklch(0.82 0.14 80));
+  --gradient-rose-gold: linear-gradient(120deg, var(--rose-gold-soft), var(--rose-gold), var(--gold));
   --gradient-radial-glow: radial-gradient(ellipse at center, oklch(0.78 0.13 78 / 0.35), transparent 65%);
   --shadow-gold: 0 20px 60px -20px oklch(0.78 0.13 78 / 0.45);
   --shadow-deep: 0 40px 120px -40px oklch(0 0 0 / 0.9);
@@ -91,6 +96,12 @@
 @utility font-display { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.01em; }
 @utility text-gold {
   background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility text-rose-gold {
+  background: var(--gradient-rose-gold);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Shared bottle prices live in `src/lib/pricing.ts` so product cards, cart totals, WhatsApp orders, and price tests stay consistent.
